@@ -65,9 +65,11 @@ function fill(name) {
         char.val(sheet["chars"][key]);
         updateMod(char);
     }
+    $("[name='passiveperception']").val($("[name='Wisdommod']").val());
 
 
-    $("[name='proficiencybonus']").val(sheet["proficiencybonus"]);
+
+    $("[name='proficiencybonus']").val((sheet["proficiencybonus"] < 0 ? "" : "+") + sheet["proficiencybonus"]);
     for (var i = 0; i < sheet["skills"].length; i++) {
         var name = sheet["skills"][i];
         var skill = $("[name='" + name + "']");
@@ -79,7 +81,8 @@ function fill(name) {
 
             if ($(this).attr('name').startsWith(char)) {
                 charMod = $(this).val();
-                skill.val(parseInt($("[name='proficiencybonus']").val()) + parseInt(charMod));
+                var value = parseInt($("[name='proficiencybonus']").val()) + parseInt(charMod);
+                skill.val((value < 0 ? "" : "+") + value);
             }
         })
     }
@@ -93,13 +96,21 @@ function fill(name) {
         $(".statmod").each(function() {
             if ($(this).attr('name').startsWith(char)) {
                 charMod = $(this).val();
-                saving.val(parseInt($("[name='proficiencybonus']").val()) + parseInt(charMod));
+                var value = parseInt($("[name='proficiencybonus']").val()) + parseInt(charMod);
+                saving.val((value < 0 ? "" : "+") + value);
             }
         })
     }
 
-
+    for (var i = 0; i < sheet["feats"].length; i++) {
+        $("[name='features']").append(sheet["feats"][i] + "\n\n");
+    }
+    for (var i = 0; i < sheet["profs"].length; i++) {
+        $("[name='otherprofs']").append(sheet["profs"][i] + "\n\n");
+    }
+    $("[name='maxhp']").val(sheet["hp"]);
 }
+
 
 function updateMod(char) {
     var inputName = char.attr('name')
@@ -145,12 +156,97 @@ var settings = {
                 "Wisdomscore": 10,
                 "Charismascore": 10
             },
-            "skills": ["Athletics", "Insight"],
+            "skills": ["Athletics", "Insight", "Survival", "Perception", "History", "Religion", "Investigation", "Persuasion"],
             "saving": ["Strength", "Constitution"],
+            "feats": ["Martial Adept", "Skilled", "Observant"],
+            "profs": ["Trip Attack", "Pushing Attack", "Distracting Attack", "Disarming attack", "Sweeping Attack", "Evasive Footwork"],
             "proficiencybonus": 3,
+            "hp": 52,
             "equipment": {}
         }
     },
-    "mirko": { "title": "Mirko", "sheet": { "classlevel": "Warrior 3" } },
-    "lisa": { "title": "Lisa", "sheet": { "classlevel": "Warrior 3" } }
+    "lisa": {
+        "title": "Lisa",
+        "sheet": {
+            "description": {
+                "charname": "Lisa",
+                "classlevel": "Barbarian 6",
+                "race": "Half-Orc",
+                "alignment": "chaotic good",
+                "background": "outlander",
+                "experiencepoints": 15000
+            },
+            "chars": {
+                "Strengthscore": 16,
+                "Dexterityscore": 11,
+                "Constitutionscore": 12,
+                "Intelligencescore": 16,
+                "Wisdomscore": 10,
+                "Charismascore": 10
+            },
+            "skills": ["Athletics", "Insight", "Survival", "Perception", "History", "Religion", "Investigation", "Persuasion"],
+            "saving": ["Strength", "Constitution"],
+            "feats": ["Martial Adept", "Skilled", "Observant"],
+            "profs": ["Trip Attack", "Pushing Attack", "Distracting Attack", "Disarming attack", "Sweeping Attack", "Evasive Footwork"],
+            "proficiencybonus": 3,
+            "hp": 52,
+            "equipment": {}
+        }
+    },
+    "marco": {
+        "title": "Marco",
+        "sheet": {
+            "description": {
+                "charname": "Marco",
+                "classlevel": "Sorcerer 6",
+                "race": "Dragonborn",
+                "alignment": "neutral good",
+                "background": "outlander",
+                "experiencepoints": 15000
+            },
+            "chars": {
+                "Strengthscore": 16,
+                "Dexterityscore": 11,
+                "Constitutionscore": 12,
+                "Intelligencescore": 16,
+                "Wisdomscore": 10,
+                "Charismascore": 10
+            },
+            "skills": ["Athletics", "Insight", "Survival", "Perception", "History", "Religion", "Investigation", "Persuasion"],
+            "saving": ["Strength", "Constitution"],
+            "feats": ["Martial Adept", "Skilled", "Observant"],
+            "profs": ["Trip Attack", "Pushing Attack", "Distracting Attack", "Disarming attack", "Sweeping Attack", "Evasive Footwork"],
+            "proficiencybonus": 3,
+            "hp": 52,
+            "equipment": {}
+        }
+    },
+    "mirko": {
+        "title": "Mirko",
+        "sheet": {
+            "description": {
+                "charname": "Mirko",
+                "classlevel": "Druid 6",
+                "race": "Human",
+                "alignment": "neutral good",
+                "background": "outlander",
+                "experiencepoints": 15000
+            },
+            "chars": {
+                "Strengthscore": 16,
+                "Dexterityscore": 11,
+                "Constitutionscore": 12,
+                "Intelligencescore": 16,
+                "Wisdomscore": 10,
+                "Charismascore": 10
+            },
+            "skills": ["Athletics", "Insight", "Survival", "Perception", "History", "Religion", "Investigation", "Persuasion"],
+            "saving": ["Strength", "Constitution"],
+            "feats": ["Martial Adept", "Skilled", "Observant"],
+            "profs": ["Trip Attack", "Pushing Attack", "Distracting Attack", "Disarming attack", "Sweeping Attack", "Evasive Footwork"],
+            "proficiencybonus": 3,
+            "hp": 52,
+            "equipment": {}
+        }
+    },
 };
