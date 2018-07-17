@@ -488,15 +488,15 @@ form.charsheet main section.combat > div.deathsaves > div > div.marks div.deaths
   flex: 1 50%;
 }
 form.charsheet main section.combat > div.deathsaves > div div.bubbles {
-  flex: 1 40%;
-  margin-left: 5px;
+  flex: 1 60%;
+  margin-left: 3px;
 }
 form.charsheet main section.combat > div.deathsaves > div div.bubbles input[type="checkbox"] {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   border: 1px solid black;
   border-radius: 10px;
 }
