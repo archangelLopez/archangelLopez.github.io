@@ -173,7 +173,7 @@ var settings = {
                 "classlevel": "Barbarian 6",
                 "race": "Half-Orc",
                 "alignment": "chaotic good",
-                "background": "outlander",
+                "background": "Outlander",
                 "experiencepoints": 15000
             },
             "chars": {
@@ -201,23 +201,23 @@ var settings = {
                 "classlevel": "Sorcerer 6",
                 "race": "Dragonborn",
                 "alignment": "neutral good",
-                "background": "outlander",
+                "background": "Wanderer",
                 "experiencepoints": 15000
             },
             "chars": {
-                "Strengthscore": 16,
-                "Dexterityscore": 11,
-                "Constitutionscore": 12,
-                "Intelligencescore": 16,
-                "Wisdomscore": 10,
-                "Charismascore": 10
+                "Strengthscore": 10,
+                "Dexterityscore": 14,
+                "Constitutionscore": 14,
+                "Intelligencescore": 10,
+                "Wisdomscore": 12,
+                "Charismascore": 17
             },
-            "skills": ["Athletics", "Insight", "Survival", "Perception", "History", "Religion", "Investigation", "Persuasion"],
-            "saving": ["Strength", "Constitution"],
-            "feats": ["Martial Adept", "Skilled", "Observant"],
-            "profs": ["Trip Attack", "Pushing Attack", "Distracting Attack", "Disarming attack", "Sweeping Attack", "Evasive Footwork"],
+            "skills": ["Athletics", "Arcana", "Intimidation", "Survival"],
+            "saving": ["Charisma", "Constitution"],
+            "feats": ["Cold Resistance", "Spellcasting", "Cold Breath", "Dragon Ancestor", "Draconic Resilience", "Elemental Affinity: Cold"],
+            "profs": [""],
             "proficiencybonus": 3,
-            "hp": 52,
+            "hp": 44,
             "equipment": {}
         }
     },
