@@ -115,16 +115,25 @@ function fill(name) {
         if (sheet["equipment"][i]["type"] == "rweapon") {
             $("[name='atkname" + atkIndex + "']").val(sheet["equipment"][i]["name"]);
             var bonus = parseInt($("[name='proficiencybonus']").val()) + parseInt($("[name='Dexteritymod']").val())
-            $("[name='atkbonus" + atkIndex + "']").val((bonus < 0 ? "" : "+") + bonus);
             var dmgBonus = parseInt($("[name='Dexteritymod']").val());
+            if (sheet["equipment"][i]["bonus"]) {
+                bonus += sheet["equipment"][i]["bonus"];
+                dmgBonus += sheet["equipment"][i]["bonus"];
+            }
+            $("[name='atkbonus" + atkIndex + "']").val((bonus < 0 ? "" : "+") + bonus);
             $("[name='atkdamage" + atkIndex + "']").val(sheet["equipment"][i]["effect"] + (dmgBonus < 0 ? "" : "+") + dmgBonus);
             atkIndex += 1;
 
         } else if (sheet["equipment"][i]["type"] == "mweapon") {
             $("[name='atkname" + atkIndex + "']").val(sheet["equipment"][i]["name"]);
             var bonus = parseInt($("[name='proficiencybonus']").val()) + parseInt($("[name='Strengthmod']").val())
-            $("[name='atkbonus" + atkIndex + "']").val((bonus < 0 ? "" : "+") + bonus);
+
             var dmgBonus = parseInt($("[name='Strengthmod']").val());
+            if (sheet["equipment"][i]["bonus"]) {
+                bonus += sheet["equipment"][i]["bonus"];
+                dmgBonus += sheet["equipment"][i]["bonus"];
+            }
+            $("[name='atkbonus" + atkIndex + "']").val((bonus < 0 ? "" : "+") + bonus);
             $("[name='atkdamage" + atkIndex + "']").val(sheet["equipment"][i]["effect"] + (dmgBonus < 0 ? "" : "+") + dmgBonus);
             atkIndex += 1;
         }
@@ -188,7 +197,7 @@ var settings = {
             "proficiencybonus": 3,
             "hp": 52,
             "ac": 20,
-            "equipment": [{ "name": "Long Sword", "type": "mweapon", "effect": "Cut 1d8" }, { "name": "SG Shield", "type": "shield", "effect": 2 }, { "name": "Splint Armor", "type": "armor", "effect": 7, "maxDex": 0 }]
+            "equipment": [{ "name": "Long Sword", "type": "mweapon", "effect": "Cut 1d8", "bonus": 0 }, { "name": "SG Shield", "type": "shield", "effect": 2 }, { "name": "Splint Armor", "type": "armor", "effect": 7, "maxDex": 0 }]
         }
     },
     "lisa": {
@@ -216,8 +225,8 @@ var settings = {
             "profs": ["Trip Attack", "Pushing Attack", "Distracting Attack", "Disarming attack", "Sweeping Attack", "Evasive Footwork"],
             "proficiencybonus": 3,
             "hp": 65,
-            "ac": 15,
-            "equipment": [{ "name": "Great Sword", "type": "mweapon", "effect": "Slash 2d6" }, { "name": "SJA Ring", "type": "ring", "effect": "" }]
+            "ac": 14,
+            "equipment": [{ "name": "SJA Great Sword", "type": "mweapon", "effect": "Slash 2d6", "bonus": 1 }, { "name": " Ring", "type": "ring", "effect": "" }]
         }
     },
     "marco": {
@@ -251,7 +260,7 @@ var settings = {
             "proficiencybonus": 3,
             "hp": 44,
             "ac": 15,
-            "equipment": [{ "name": "گاسپاره Staff", "type": "mweapon", "effect": "Bludge 1d8" }, { "name": "Dagger", "type": "mweapon", "effect": "Pierce 1d4" }]
+            "equipment": [{ "name": "گاسپاره Staff", "type": "mweapon", "effect": "Bludge 1d8", "bonus": 1 }, { "name": "Dagger", "type": "mweapon", "effect": "Pierce 1d4", "bonus": 0 }]
         }
     },
     "mirko": {
@@ -284,8 +293,8 @@ var settings = {
             ],
             "proficiencybonus": 3,
             "hp": 45,
-            "ac": 15,
-            "equipment": [{ "name": "Dagger", "type": "mweapon", "effect": "Cut 1d4" }, { "name": "F Rope Belt", "type": "belt", "effect": "Cut 2d6" }]
+            "ac": 16,
+            "equipment": [{ "name": "Dagger", "type": "mweapon", "effect": "Cut 1d4", "bonus": 0 }, { "name": "F Rope Belt", "type": "belt", "effect": "Beast Control" }]
         }
     },
 };
