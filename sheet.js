@@ -2,7 +2,6 @@ $(document).ready(function(e) {
     $('.stat').bind('input', function() {
         updateMod($(this));
     })
-    console.log($("[name='proficiencybonus']"));
     $("[name='proficiencybonus']").bind('input', function() {
         updateProfBonus();
     })
@@ -108,7 +107,33 @@ function fill(name) {
     for (var i = 0; i < sheet["profs"].length; i++) {
         $("[name='otherprofs']").append(sheet["profs"][i] + "\n\n");
     }
+
+    var atkIndex = 1;
+    for (var i = 0; i < sheet["equipment"].length; i++) {
+        var text = sheet["equipment"][i]["type"] + ": " + sheet["equipment"][i]["name"] + "\n"
+        $("[name='equipmentList']").append(text);
+        if (sheet["equipment"][i]["type"] == "rweapon") {
+            $("[name='atkname" + atkIndex + "']").val(sheet["equipment"][i]["name"]);
+            var bonus = parseInt($("[name='proficiencybonus']").val()) + parseInt($("[name='Dexteritymod']").val())
+            $("[name='atkbonus" + atkIndex + "']").val((bonus < 0 ? "" : "+") + bonus);
+            var dmgBonus = parseInt($("[name='Dexteritymod']").val());
+            $("[name='atkdamage" + atkIndex + "']").val(sheet["equipment"][i]["effect"] + (dmgBonus < 0 ? "" : "+") + dmgBonus);
+            atkIndex += 1;
+
+        } else if (sheet["equipment"][i]["type"] == "mweapon") {
+            $("[name='atkname" + atkIndex + "']").val(sheet["equipment"][i]["name"]);
+            var bonus = parseInt($("[name='proficiencybonus']").val()) + parseInt($("[name='Strengthmod']").val())
+            $("[name='atkbonus" + atkIndex + "']").val((bonus < 0 ? "" : "+") + bonus);
+            var dmgBonus = parseInt($("[name='Strengthmod']").val());
+            $("[name='atkdamage" + atkIndex + "']").val(sheet["equipment"][i]["effect"] + (dmgBonus < 0 ? "" : "+") + dmgBonus);
+            atkIndex += 1;
+        }
+    }
     $("[name='maxhp']").val(sheet["hp"]);
+    $("[name='ac']").val(sheet["ac"]);
+
+
+    ac
 }
 
 
@@ -145,34 +170,6 @@ var settings = {
                 "classlevel": "Fighter 6",
                 "race": "Human",
                 "alignment": "neutral good",
-                "background": "outlander",
-                "experiencepoints": 15000
-            },
-            "chars": {
-                "Strengthscore": 16,
-                "Dexterityscore": 11,
-                "Constitutionscore": 12,
-                "Intelligencescore": 16,
-                "Wisdomscore": 10,
-                "Charismascore": 10
-            },
-            "skills": ["Athletics", "Insight", "Survival", "Perception", "History", "Religion", "Investigation", "Persuasion"],
-            "saving": ["Strength", "Constitution"],
-            "feats": ["Martial Adept", "Skilled", "Observant"],
-            "profs": ["Trip Attack", "Pushing Attack", "Distracting Attack", "Disarming attack", "Sweeping Attack", "Evasive Footwork"],
-            "proficiencybonus": 3,
-            "hp": 52,
-            "equipment": {}
-        }
-    },
-    "lisa": {
-        "title": "Lisa",
-        "sheet": {
-            "description": {
-                "charname": "Lisa",
-                "classlevel": "Barbarian 6",
-                "race": "Half-Orc",
-                "alignment": "chaotic good",
                 "background": "Outlander",
                 "experiencepoints": 15000
             },
@@ -190,7 +187,37 @@ var settings = {
             "profs": ["Trip Attack", "Pushing Attack", "Distracting Attack", "Disarming attack", "Sweeping Attack", "Evasive Footwork"],
             "proficiencybonus": 3,
             "hp": 52,
-            "equipment": {}
+            "ac": 20,
+            "equipment": [{ "name": "Long Sword", "type": "mweapon", "effect": "Cut 1d8" }, { "name": "SG Shield", "type": "shield", "effect": 2 }, { "name": "Splint Armor", "type": "armor", "effect": 7, "maxDex": 0 }]
+        }
+    },
+    "lisa": {
+        "title": "Lisa",
+        "sheet": {
+            "description": {
+                "charname": "Lisa",
+                "classlevel": "Barbarian 6",
+                "race": "Half-Orc",
+                "alignment": "chaotic good",
+                "background": "Outlander",
+                "experiencepoints": 15000
+            },
+            "chars": {
+                "Strengthscore": 18,
+                "Dexterityscore": 13,
+                "Constitutionscore": 16,
+                "Intelligencescore": 8,
+                "Wisdomscore": 12,
+                "Charismascore": 10
+            },
+            "skills": ["Athletics", "Intimidation", "Survival", "Perception"],
+            "saving": ["Strength", "Constitution"],
+            "feats": ["Danger Sense, Fast Movement, Rage, Reckless Attack, Unarmored Defense"],
+            "profs": ["Trip Attack", "Pushing Attack", "Distracting Attack", "Disarming attack", "Sweeping Attack", "Evasive Footwork"],
+            "proficiencybonus": 3,
+            "hp": 65,
+            "ac": 15,
+            "equipment": [{ "name": "Great Sword", "type": "mweapon", "effect": "Slash 2d6" }, { "name": "SJA Ring", "type": "ring", "effect": "" }]
         }
     },
     "marco": {
@@ -201,7 +228,7 @@ var settings = {
                 "classlevel": "Sorcerer 6",
                 "race": "Dragonborn",
                 "alignment": "neutral good",
-                "background": "Wanderer",
+                "background": "Outlander",
                 "experiencepoints": 15000
             },
             "chars": {
@@ -214,11 +241,17 @@ var settings = {
             },
             "skills": ["Athletics", "Arcana", "Intimidation", "Survival"],
             "saving": ["Charisma", "Constitution"],
-            "feats": ["Cold Resistance", "Spellcasting", "Cold Breath", "Dragon Ancestor", "Draconic Resilience", "Elemental Affinity: Cold"],
-            "profs": [""],
+            "feats": ["Cold Resistance", "Cold Breath", "Dragon Ancestor", "Draconic Resilience", "Elemental Affinity: Cold", "Dragon Ancestor", "Font of Magic"],
+            "profs": ["Spellcasting: DC 14, Atk: +7",
+                "Cantrips: blade ward, mage hand, ray of frost, shocking grasp, true strike",
+                "1st level (4 slots): chromatic orb, magic missile, shield",
+                "2nd level (3 slots): blur, scorching ray",
+                "3rd level (3 slots): Fireball, fly"
+            ],
             "proficiencybonus": 3,
             "hp": 44,
-            "equipment": {}
+            "ac": 15,
+            "equipment": [{ "name": "گاسپاره Staff", "type": "mweapon", "effect": "Bludge 1d8" }, { "name": "Dagger", "type": "mweapon", "effect": "Pierce 1d4" }]
         }
     },
     "mirko": {
@@ -229,24 +262,30 @@ var settings = {
                 "classlevel": "Druid 6",
                 "race": "Human",
                 "alignment": "neutral good",
-                "background": "outlander",
+                "background": "Folk Hero",
                 "experiencepoints": 15000
             },
             "chars": {
-                "Strengthscore": 16,
-                "Dexterityscore": 11,
-                "Constitutionscore": 12,
-                "Intelligencescore": 16,
-                "Wisdomscore": 10,
-                "Charismascore": 10
+                "Strengthscore": 9,
+                "Dexterityscore": 16,
+                "Constitutionscore": 14,
+                "Intelligencescore": 11,
+                "Wisdomscore": 16,
+                "Charismascore": 14
             },
-            "skills": ["Athletics", "Insight", "Survival", "Perception", "History", "Religion", "Investigation", "Persuasion"],
-            "saving": ["Strength", "Constitution"],
-            "feats": ["Martial Adept", "Skilled", "Observant"],
-            "profs": ["Trip Attack", "Pushing Attack", "Distracting Attack", "Disarming attack", "Sweeping Attack", "Evasive Footwork"],
+            "skills": ["History", "Insight", "Medicine", "Nature"],
+            "saving": ["Intelligence", "Wisdom"],
+            "feats": ["Druidic", "Wild Shape", "Combat Wild Shape", "Primal Strike", "Two-Weapon Fighting"],
+            "profs": ["Spellcasting: DC 14, Atk: +6",
+                "Cantrips: druidcraft, produce flame, thorn whip",
+                "1st Level (4 slots): cure wounds, faerie fire, fog cloud, healing word, thunderwave",
+                "2nd Level (3 slots): flame blade, gust of wind, moonbeam",
+                "3rd Level (3 slots): call lightning"
+            ],
             "proficiencybonus": 3,
-            "hp": 52,
-            "equipment": {}
+            "hp": 45,
+            "ac": 15,
+            "equipment": [{ "name": "Dagger", "type": "mweapon", "effect": "Cut 1d4" }, { "name": "F Rope Belt", "type": "belt", "effect": "Cut 2d6" }]
         }
     },
 };

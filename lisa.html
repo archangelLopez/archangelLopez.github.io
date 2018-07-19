@@ -84,7 +84,7 @@
                                     <input name="Wisdomscore" placeholder="10" class="stat" />
                                 </div>
                                 <div class="modifier">
-                                    <input name="Wisdommod" placeholder="+0" />
+                                    <input name="Wisdommod" placeholder="+0" class="statmod"/>
                                 </div>
                             </li>
                             <li>
@@ -120,7 +120,7 @@
                             </div>
                             <input name="proficiencybonus" placeholder="+2" />
                         </div>
-                        <div class="saves list-section box">
+                        <div class="saves list-section box" id="savingTable">
                             <ul>
                                 <li>
                                     <label for="Strength-save">Strength</label>
@@ -157,7 +157,7 @@
                                 Saving Throws
                             </div>
                         </div>
-                        <div class="skills list-section box">
+                        <div class="skills list-section box" id="skillTable">
                             <ul>
                                 <li>
                                     <label for="Acrobatics">Acrobatics <span class="skill">(Dex)</span></label>
@@ -392,6 +392,28 @@
                                         <input name="atkdamage3" type="text" />
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>
+                                        <input name="atkname4" type="text" />
+                                    </td>
+                                    <td>
+                                        <input name="atkbonus4" type="text" />
+                                    </td>
+                                    <td>
+                                        <input name="atkdamage4" type="text" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input name="atkname5" type="text" />
+                                    </td>
+                                    <td>
+                                        <input name="atkbonus5" type="text" />
+                                    </td>
+                                    <td>
+                                        <input name="atkdamage5" type="text" />
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                         <textarea></textarea>
@@ -424,7 +446,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <textarea placeholder="Equipment list here"></textarea>
+                        <textarea name = "equipmentList" placeholder="Equipment list here"></textarea>
                     </div>
                 </section>
             </section>
